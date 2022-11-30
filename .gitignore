@@ -1,0 +1,5 @@
+/.vs/*
+/AoC_2022/bin/*
+/AoC_2022/obj/*
+/AoC_2022.sln.DotSettings.user
+/.idea/*
