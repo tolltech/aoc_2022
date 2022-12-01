@@ -1,32 +1,4 @@
-﻿using System;
-using System.Linq;
-using FluentAssertions;
-using NUnit.Framework;
-
-namespace AoC_2021
-{
-    [TestFixture]
-    public class Task01
-    {
-        [Test]
-        [TestCase(
-            @"1000
-2000
-3000
-
-4000
-
-5000
-6000
-
-7000
-8000
-9000
-
-10000",
-            24000)]
-        [TestCase(
-            @"5794
+5794
 5879
 4899
 6777
@@ -2273,17 +2245,4 @@ namespace AoC_2021
 6422
 2010
 2244
-8805"
-            ,
-            67016)]
-        public void Task(string input, int expected)
-        {
-            var max = input.Split("\r\n\r\n", StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => x.Split("\r\n", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray())
-                .Select(x => x.Sum())
-                .Max();
-
-            max.Should().Be(expected);
-        }
-    }
-}
+8805
