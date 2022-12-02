@@ -34,8 +34,8 @@ namespace AoC_2021
         {
             input = File.Exists(input) ? File.ReadAllText(input) : input;
 
-            var max = input.Split("\r\n\r\n", StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => x.Split("\r\n", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray())
+            var max = input.Split(new[] { "\r\n\r\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray())
                 .Select(x => x.Sum())
                 .OrderByDescending(x => x)
                 .Take(3)
