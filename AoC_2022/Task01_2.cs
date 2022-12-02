@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace AoC_2021
 {
     [TestFixture]
-    public class Task02
+    public class Task01_2
     {
         [Test]
         [TestCase(
