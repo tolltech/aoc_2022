@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AoC_2021
+namespace AoC_2022
 {
     public static class Extensions
     {

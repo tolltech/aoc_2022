@@ -3,7 +3,7 @@ using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace AoC_2021
+namespace AoC_2022
 {
     [TestFixture]
     public class Task01
@@ -2278,8 +2278,8 @@ namespace AoC_2021
             67016)]
         public void Task(string input, int expected)
         {
-            var max = input.Split("\r\n\r\n", StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => x.Split("\r\n", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray())
+            var max = input.Split(new[] { "\r\n\r\n", "\n\n" }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray())
                 .Select(x => x.Sum())
                 .Max();
 

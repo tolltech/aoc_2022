@@ -4,7 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace AoC_2021
+namespace AoC_2022
 {
     [TestFixture]
     public class Task01_2

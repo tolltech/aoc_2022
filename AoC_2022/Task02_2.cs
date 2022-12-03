@@ -4,7 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace AoC_2021
+namespace AoC_2022
 {
     [TestFixture]
     public class Task02_2
@@ -23,7 +23,7 @@ C Z",
         {
             input = File.Exists(input) ? File.ReadAllText(input) : input;
 
-            var rounds = input.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)
+            var rounds = input.Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => (Elf: x[0] - 'A', Me: x[2] - 'X'))
                 .ToArray();
 
