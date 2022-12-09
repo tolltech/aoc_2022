@@ -23,7 +23,7 @@ R 4
 D 1
 L 5
 R 2", 13)]
-        [TestCase(@"Task09.txt", 1779)]
+        [TestCase(@"Task09.txt", 5981, Ignore = "dolgo")]
         public void Task(string input, int expected)
         {
             input = (File.Exists(input) ? File.ReadAllText(input) : input).Trim();
