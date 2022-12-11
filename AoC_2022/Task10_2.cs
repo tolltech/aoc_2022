@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -160,42 +161,61 @@ addx -6
 addx -11
 noop
 noop
-noop", 13140)]
-        [TestCase(@"Task10.txt", 13820)]
-        public void Task(string input, long expected)
+noop", @"##..##..##..##..##..##..##..##..##..##..
+###...###...###...###...###...###...###.
+####....####....####....####....####....
+#####.....#####.....#####.....#####.....
+######......######......######......####
+#######.......#######.......#######.....")]
+        [TestCase(@"Task10.txt", "")]
+        public void Task(string input, string expected)
         {
             input = (File.Exists(input) ? File.ReadAllText(input) : input).Trim();
             var lines = input.Split(new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            
+            var cycleNumber = 0;
             var x = 1L;
-            foreach (var line in lines)
+            var i = 0;
+            var rows = new List<char[]>
+            {
+                new char[20],
+                new char[20],
+                new char[20],
+                new char[20],
+                new char[20],
+                new char[20],
+            };
+            while (cycleNumber <= 240)
             {
                 ++cycleNumber;
+                Draw(rows, cycleNumber - 1, x);
 
+                var line = lines[i++];
                 var splits = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-                if (cycleNumbers.Contains(cycleNumber))
-                {
-                    result += cycleNumber * x;
-                }
-                
+                // if (cycleNumbers.Contains(cycleNumber))
+                // {
+                //     result += cycleNumber * x;
+                // }
+
                 if (splits[0] == "noop") continue;
 
                 ++cycleNumber;
+                Draw(rows, cycleNumber - 1, x);
 
-                if (cycleNumbers.Contains(cycleNumber))
-                {
-                    result += cycleNumber * x;
-                }
-                
+                // if (cycleNumbers.Contains(cycleNumber))
+                // {
+                //     result += cycleNumber * x;
+                // }
+
                 x += int.Parse(splits[1]);
             }
 
-            if (cycleNumber < 20)
-                result = x;
+            string.Join("\r\n", rows.Select(x => new string(x))).Should().Be(expected);
+        }
 
-            result.Should().Be(expected);
+        private static void Draw(List<char[]> rows, int position, long x)
+        {
         }
     }
 }
