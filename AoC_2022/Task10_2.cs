@@ -167,7 +167,12 @@ noop", @"##..##..##..##..##..##..##..##..##..##..
 #####.....#####.....#####.....#####.....
 ######......######......######......####
 #######.......#######.......#######.....")]
-        [TestCase(@"Task10.txt", "")]
+        [TestCase(@"Task10.txt", @"####.#..#..##..###..#..#..##..###..#..#.
+...#.#.#..#..#.#..#.#.#..#..#.#..#.#.#..
+..#..##...#....#..#.##...#....#..#.##...
+.#...#.#..#.##.###..#.#..#.##.###..#.#..
+#....#.#..#..#.#.#..#.#..#..#.#.#..#.#..
+####.#..#..###.#..#.#..#..###.#..#.#..#.")]
         public void Task(string input, string expected)
         {
             input = (File.Exists(input) ? File.ReadAllText(input) : input).Trim();
@@ -178,16 +183,26 @@ noop", @"##..##..##..##..##..##..##..##..##..##..
             var i = 0;
             var rows = new List<char[]>
             {
-                new char[20],
-                new char[20],
-                new char[20],
-                new char[20],
-                new char[20],
-                new char[20],
+                new char[40],
+                new char[40],
+                new char[40],
+                new char[40],
+                new char[40],
+                new char[40],
             };
+
+            foreach (var row in rows)
+                for (var r = 0; r < 40; ++r)
+                {
+                    row[r] = '.';
+                }
+
             while (cycleNumber <= 240)
             {
                 ++cycleNumber;
+
+                if (cycleNumber >= 240) break;
+                
                 Draw(rows, cycleNumber - 1, x);
 
                 var line = lines[i++];
@@ -216,6 +231,10 @@ noop", @"##..##..##..##..##..##..##..##..##..##..
 
         private static void Draw(List<char[]> rows, int position, long x)
         {
+            var row = position / 40;
+            var column = position % 40;
+
+            rows[row][column] = (column <= x + 1) && (column >= x - 1) ? '#' : '.';
         }
     }
 }
