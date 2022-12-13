@@ -16,11 +16,6 @@ namespace AoC_2022
     [TestFixture]
     public class Task13
     {
-        private bool Right(Node leftRoot, Node rightRoot)
-        {
-            return false;
-        }
-
         [Test]
         [TestCase(@"[1,1,3,1,1]
 [1,1,5,1,1]
@@ -61,7 +56,7 @@ namespace AoC_2022
 [[]]", 0)]
         [TestCase(@"[1,[2,[3,[4,[5,6,7]]]],8,9]
 [1,[2,[3,[4,[5,6,0]]]],8,9]", 0)]
-        [TestCase(@"Task13.txt", 0)]
+        [TestCase(@"Task13.txt", 6272)]
         public void Task(string input, int expected)
         {
             input = (File.Exists(input) ? File.ReadAllText(input) : input).Trim();
@@ -75,7 +70,7 @@ namespace AoC_2022
                 var leftRoot = Build(lines[0]);
                 var rightRoot = Build(lines[1]);
 
-                if (Right(leftRoot, rightRoot))
+                if (Right(leftRoot, rightRoot) == true)
                 {
                     result.Add(i + 1);
                 }
@@ -101,6 +96,40 @@ namespace AoC_2022
             
             return node;
         }
+        
+        private bool? Right(Node left, Node right)
+        {
+            if (left.Leave.HasValue && right.Leave.HasValue)
+            {
+                if (left.Leave > right.Leave)
+                {
+                    return false;
+                }
+                
+                if (left.Leave < right.Leave)
+                {
+                    return true;
+                }
+
+                return null;
+            }
+
+            if (left.Leave.HasValue || right.Leave.HasValue)
+            {
+                return Right(left.ConvertToList(), right.ConvertToList());
+            }
+
+            for (var i = 0; i < Math.Max(left.Children.Count, right.Children.Count); ++i)
+            {
+                if (i >= left.Children.Count) return true;
+                if (i >= right.Children.Count) return false;
+
+                var rightCurrent = Right(left.Children[i], right.Children[i]);
+                if (rightCurrent.HasValue) return rightCurrent.Value;
+            }
+
+            return null;
+        }
 
         class Node
         {
@@ -115,6 +144,16 @@ namespace AoC_2022
             public int? Leave { get; set; }
             public bool IsEmpty => Children.Count == 0;
             public bool IsLeave => Leave.HasValue;
+
+            public Node ConvertToList()
+            {
+                if (!IsLeave) return this;
+                return new Node
+                {
+                    Children = new[] { new Node(Leave) }.ToList(),
+                    Leave = null
+                };
+            }
         }
     }
 }
