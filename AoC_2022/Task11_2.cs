@@ -43,7 +43,7 @@ Monkey 3:
   Test: divisible by 17
     If true: throw to monkey 0
     If false: throw to monkey 1", 2713310158L)]
-        [TestCase(@"Task11.txt", 0L)]
+        [TestCase(@"Task11.txt", 11309046332L)]
         public void Task(string input, long expected, int rounds = 10000)
         {
             input = (File.Exists(input) ? File.ReadAllText(input) : input).Trim();
