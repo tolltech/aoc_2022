@@ -18,8 +18,8 @@ namespace AoC_2022
     {
         [Test]
         [TestCase(@"498,4 -> 498,6 -> 496,6
-503,4 -> 502,4 -> 502,9 -> 494,9", 24)]
-        [TestCase(@"Task14.txt", 1133)]
+503,4 -> 502,4 -> 502,9 -> 494,9", 93)]
+        [TestCase(@"Task14.txt", 27566)]
         public void Task(string input, int expected)
         {
             input = (File.Exists(input) ? File.ReadAllText(input) : input).Trim();
@@ -51,8 +51,6 @@ namespace AoC_2022
             var rocksCount = rocks.Count;
             var maxY = rocks.Select(x => x.Y).Max();
 
-            var backupRocks = new HashSet<Point>(rocks);
-
             while (true)
             {
                 var current = new Point(500, 0);
@@ -62,12 +60,12 @@ namespace AoC_2022
                     if (newPoint == null) break;
 
                     current = newPoint.Value;
-                    if (newPoint.Value.Y >= maxY) break;
+                    if (newPoint.Value.Y >= maxY + 1) break;
                 }
 
-                if (current.Y >= maxY) break;
-
                 rocks.Add(current);
+                
+                if (Equals(current, new Point(500, 0))) break;
 
                 //var ss = Print(rocks, backupRocks);
             }
