@@ -26,7 +26,7 @@ Sensor at x=17, y=20: closest beacon is at x=21, y=22
 Sensor at x=16, y=7: closest beacon is at x=15, y=3
 Sensor at x=14, y=3: closest beacon is at x=15, y=3
 Sensor at x=20, y=1: closest beacon is at x=15, y=3", 20, 56000011)]
-        [TestCase(@"Task15.txt", 4000000, 0)]
+        [TestCase(@"Task15.txt", 4000000, 12051287042458L)]
         public void Task(string input, int maxRow, long expected)
         {
             input = (File.Exists(input) ? File.ReadAllText(input) : input).Trim();
